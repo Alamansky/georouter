@@ -1,12 +1,12 @@
 let buildRequestObj = routes => {
   let request = {};
   for (tech in routes) {
-    let lastStreet = routes[tech][0][0];
+    let lastStreet = routes[tech][0][1];
     request[tech] = [];
-    routes[tech].forEach(address => {
-      let currentStreet = address[1];
+    routes[tech].forEach(workOrder => {
+      let currentStreet = workOrder[0][1];
       if (currentStreet != lastStreet) {
-        request[tech].push(address.join(" "));
+        request[tech].push(workOrder[0].join(" "));
         lastStreet = currentStreet;
       }
     });

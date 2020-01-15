@@ -3,10 +3,10 @@ let buildSortedRoute = (indexArr, request, routes, tech) => {
 
   indexArr.forEach(index => {
     let sortedAddress = request[tech][index];
-    let matchedAddress = routes[tech].filter(routeAddress =>
-      sortedAddress.includes(routeAddress[1])
+    let matchedWorkOrder = routes[tech].filter(workOrder =>
+      sortedAddress.includes(workOrder[0][1])
     );
-    finishedRoute.push(matchedAddress);
+    finishedRoute.push(matchedWorkOrder);
   });
 
   return finishedRoute;
