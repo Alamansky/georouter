@@ -1,8 +1,11 @@
 let buildRequestObj = routes => {
+  // object to send to MapQuest
   let request = {};
   for (tech in routes) {
-    let lastStreet = routes[tech][0][1];
-    request[tech] = [];
+    // init the lastStreet var
+    let lastStreet = null;
+    // all routes start at address of warehouse
+    request[tech] = ["1918 Babcock Blvd, Pittsburgh, PA 15209"];
     routes[tech].forEach(workOrder => {
       let currentStreet = workOrder[0][1];
       if (currentStreet != lastStreet) {
@@ -11,6 +14,7 @@ let buildRequestObj = routes => {
       }
     });
   }
+  /* console.log(request); */
   return request;
 };
 

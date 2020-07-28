@@ -1,7 +1,7 @@
-const fs = require("fs");
 const doc = require("../html-builders/doc");
 const style = require("../html-builders/style");
 const getDate = require("./getDate");
+const { createPDF } = require("html-to-pdf-studio");
 
 let printRouteSheet = (sortedRoute, tech) => {
   let formattedText = sortedRoute
@@ -11,7 +11,9 @@ let printRouteSheet = (sortedRoute, tech) => {
           workOrder =>
             `<tr><td>${workOrder[0].join(" ")}</td>\t<td>${
               workOrder[1][0]
-            }</td><td>${workOrder[1][1]}</td><td>${workOrder[1][2]}</td><tr>\n`
+            }</td><td>${workOrder[1][1]}</td><td>${
+              workOrder[1][2].split("   ")[1]
+            }</td><tr>\n`
         )
         .join("\n")
     )
@@ -27,15 +29,30 @@ let printRouteSheet = (sortedRoute, tech) => {
       </thead>
       <tbody>${formattedText}</tbody>
     </table>`;
+
   let date = getDate();
-  fs.writeFile(
-    `./routes/${tech}--${date}.html`,
-    doc(`<h3>${tech} - ${date}</h3>${tableString}`, style),
-    "utf-8",
-    err => {
-      if (err) throw err;
-    }
-  );
+
+  const pdfOptions = {
+    format: "A4",
+    headerTemplate: "<p></p>",
+    footerTemplate: "<p></p>",
+    displayHeaderFooter: false,
+    margin: {
+      top: "40px",
+      bottom: "100px",
+      left: "40px",
+      right: "40px"
+    },
+    printBackground: true,
+    path: `./routes/${tech}--${date}.pdf`
+  };
+
+  (async () => {
+    await createPDF(
+      doc(`<h3>${tech}\t:\t${date}</h3>${tableString}`, style),
+      pdfOptions
+    );
+  })();
 };
 
 module.exports = printRouteSheet;

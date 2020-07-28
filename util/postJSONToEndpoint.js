@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-//const config = require("../config");
 
 let postJSONToEndpoint = async (endpoint, body) => {
   let res = await fetch(endpoint, {
@@ -9,7 +8,9 @@ let postJSONToEndpoint = async (endpoint, body) => {
     },
     body: JSON.stringify(body)
   });
-  return await res.json();
+  if (res) {
+    return await res.json();
+  }
 };
 
 module.exports = postJSONToEndpoint;

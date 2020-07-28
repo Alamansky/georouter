@@ -11,7 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "csv-parse": "^4.8.5",
-    "node-fetch": "^2.6.0"
+    "html-to-pdf-studio": "^1.16.0",
+    "node-fetch": "^2.6.0",
+    "pregx": "^1.1.2",
+    "printf": "^0.5.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

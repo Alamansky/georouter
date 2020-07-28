@@ -3,7 +3,13 @@ module.exports = `
     
 body {
     color: black;
+    font-size: 10px;
 }
+
+h3 {
+    font-size: 18px;
+}
+
 table {border-collapse: collapse;}
 td {
     border: 1px solid #333;
