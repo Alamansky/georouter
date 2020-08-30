@@ -10,7 +10,7 @@
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\index.js",
-      "args": ["--local", "--devMode", "--file=./csv/test/jokot.csv"]
+      "args": ["--file=./csv/alamansky.csv"]
     }
   ]
 }

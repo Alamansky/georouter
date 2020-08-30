@@ -1,4 +1,4 @@
-let doASort = arr => {
+let doASort = (arr) => {
   let unsorted = true;
   let temp;
   while (unsorted) {
@@ -21,12 +21,22 @@ let doASort = arr => {
 
 let buildSortedRoute = (indexArr, request, routes, tech) => {
   let finishedRoute = [];
-  indexArr.forEach(index => {
+  indexArr.forEach((index) => {
     let sortedAddress = request[tech][index];
-    let matchedWorkOrder = routes[tech].filter(workOrder =>
-      sortedAddress.includes(workOrder[0][1])
-    );
-    finishedRoute.push(doASort(matchedWorkOrder));
+
+    let sortedAddressAsArray = routes[tech].filter((address) => {
+      return address[0].join(" ") == sortedAddress;
+    });
+
+    let matchedWorkOrders = routes[tech].filter((workOrder) => {
+      if (sortedAddressAsArray && sortedAddressAsArray[0]) {
+        return sortedAddressAsArray[0][0][1] == workOrder[0][1];
+      } else {
+        return false;
+      }
+    });
+
+    finishedRoute.push(doASort(matchedWorkOrders));
   });
 
   return finishedRoute;

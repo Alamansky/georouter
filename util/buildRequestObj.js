@@ -1,21 +1,40 @@
-let buildRequestObj = routes => {
+const codes = require("../data/codes");
+const evalEntrypoint = require("./evalEntrypoint");
+
+let buildRequestObj = (routes) => {
   // object to send to MapQuest
-  let request = {};
+  let prod = {};
+  let cc = {};
   for (tech in routes) {
-    // init the lastStreet var
-    let lastStreet = null;
     // all routes start at address of warehouse
-    request[tech] = ["1918 Babcock Blvd, Pittsburgh, PA 15209"];
-    routes[tech].forEach(workOrder => {
-      let currentStreet = workOrder[0][1];
-      if (currentStreet != lastStreet) {
-        request[tech].push(workOrder[0].join(" "));
-        lastStreet = currentStreet;
+    let starterEntrypoint = [
+      "1918",
+      "Babcock Blvd",
+      "Pittsburgh",
+      "PA",
+      "15209",
+    ];
+    let prodEntrypoints = [starterEntrypoint];
+    let ccEntrypoints = [starterEntrypoint];
+
+    routes[tech].forEach((workOrder) => {
+      let currentAddress = workOrder[0];
+      // !codes.includes(workOrder[2][2])
+      if (!codes.includes(workOrder[2][2])) {
+        evalEntrypoint(prodEntrypoints, currentAddress);
+      } else {
+        evalEntrypoint(ccEntrypoints, currentAddress);
       }
     });
+    prod[tech] = prodEntrypoints.map((address) => address.join(" "));
+    cc[tech] = ccEntrypoints.map((address) => address.join(" "));
   }
-  /* console.log(request); */
-  return request;
+  return { prod, cc };
 };
 
 module.exports = buildRequestObj;
+
+/* .map((street) =>
+            street.filter((account) => !codes.includes(account[2][2]))
+          )
+          .filter((x) => x.length > 0) */

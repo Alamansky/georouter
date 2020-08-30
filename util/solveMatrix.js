@@ -1,4 +1,4 @@
-let solveMatrix = matrix => {
+let solveMatrix = (matrix) => {
   let indexArr = [];
   let currentIndex = 0;
 
@@ -13,12 +13,12 @@ let solveMatrix = matrix => {
     });
     indexArr.push(shortestDistanceIndex);
     currentIndex = shortestDistanceIndex;
-    matrix.forEach(subArr => {
+    matrix.forEach((subArr) => {
       subArr[currentIndex] = 0;
     });
   }
 
-  return indexArr;
+  return indexArr.filter((index) => index != null);
 };
 
 module.exports = solveMatrix;

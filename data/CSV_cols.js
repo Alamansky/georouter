@@ -1,0 +1,18 @@
+// csv structure of input
+module.exports = {
+  FSR: 0,
+  APTS: 1,
+  STREET_NUM: 2,
+  STREET_NAME: 3,
+  CITY: 4,
+  STATE: 5,
+  ZIP: 6,
+  SERIAL: 7,
+  LOCATION: 8,
+  MANUFACTURER: 9,
+  LAST_VISIT_DATE: 10,
+  LAST_VISIT_FSR: 11,
+  LAST_VISIT_REASON: 12,
+  LAST_VISIT_COMMENT: 13,
+  DISPATCHED_DATE: 14,
+};
